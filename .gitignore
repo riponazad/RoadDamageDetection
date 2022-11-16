@@ -9,6 +9,9 @@ bin-release/
 /annotations
 *.jpg
 *.png
+*.xml
+*.zip
+*.pt
 
 # Executables
 *.swf
