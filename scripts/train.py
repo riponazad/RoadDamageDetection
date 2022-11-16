@@ -47,7 +47,7 @@ if __name__ == '__main__':
     args = parse_args()
     orig_stdout = sys.stdout
     f = open('out.txt', 'w')
-    sys.stdout = f
+    #sys.stdout = f
 
     #dataset_test = RoadDamageDataset.RoadDamageDatasetTest(args.root_dir, get_transform(train=False))
     
