@@ -11,7 +11,7 @@
 #SBATCH --mail-user=mdaaz@stud.ntnu.no
 
 
-python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/China_MotorBike --model_name fasterrcnn_mobilenetv3_low --num_epochs 200
-python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/China_MotorBike --model_name fasterrcnn_resnet50 --num_epochs 200
-python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/China_MotorBike --model_name fasterrcnn_resnet50v2 --num_epochs 200
-python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/China_MotorBike --model_name fasterrcnn_mobilenetv3 --num_epochs 200
+python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway --model_name fasterrcnn_mobilenetv3_low --num_epochs 200
+python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway --model_name fasterrcnn_resnet50 --num_epochs 200
+python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway --model_name fasterrcnn_resnet50v2 --num_epochs 200
+python scripts/train.py --root_dir /cluster/projects/vc/courses/TDT17/2022/open/RDD2022/Norway --model_name fasterrcnn_mobilenetv3 --num_epochs 200
