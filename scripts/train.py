@@ -22,7 +22,8 @@ def parse_args():
     parser.add_argument("--train", action="store_true", 
                         help="Train the model. Otherwise the best saved model will start testing.")
     parser.add_argument("--model_name", default="fasterrcnn_resnet50", nargs="?", choices=["fasterrcnn_resnet50",
-                        "fasterrcnn_resnet50v2", "fasterrcnn_mobilenetv3", "fasterrcnn_mobilenetv3_low"],
+                        "fasterrcnn_resnet50v2", "fasterrcnn_mobilenetv3", "fasterrcnn_mobilenetv3_low",
+                        "fcos_resnet50_fpn"],
                         help="Choose a prefered pretrained model (fasterrcnn_resnet50 is default).")
     parser.add_argument("--num_epochs", default=1, type=int, help="Specify the number of epochs to train.")
     parser.add_argument("--model_dir", default="saved_model", help="Specify the path to save model.") 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
     #model.print()
 
     # check model's device
-    print(next(model.model.parameters()).device)
+    #print(next(model.model.parameters()).device)
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
