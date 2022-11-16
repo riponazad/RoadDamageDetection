@@ -61,7 +61,7 @@ if __name__ == '__main__':
     indices = torch.randperm(len(dataset_train)).tolist()
     ln = len(indices)
     n = int(ln*0.75)
-    print(ln, n)
+    #print(ln, n)
     dataset_train = torch.utils.data.Subset(dataset_train, indices[:-(ln-n)])
     dataset_val = torch.utils.data.Subset(dataset_val, indices[-(ln-n):])
     print(f"Train dataset length: {len(dataset_train)}")
