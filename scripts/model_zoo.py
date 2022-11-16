@@ -5,8 +5,8 @@ from engine import train_one_epoch, evaluate
 from torch.optim.lr_scheduler import StepLR
 from torchvision.utils import draw_bounding_boxes
 from torchvision.transforms.functional import to_pil_image
-from torchmetrics.detection.mean_ap import MeanAveragePrecision
-from pprint import pprint
+#from torchmetrics.detection.mean_ap import MeanAveragePrecision
+#from pprint import pprint
 
 #annotating labels back
 label_dict_ = {
@@ -57,12 +57,12 @@ class model_detector():
         return self.model.parameters()
 
     def train(self, data_loader_train, data_loader_val, num_epochs, optimizer, lr_scheduler):
-        #For saving the best model
+        """ #For saving the best model
         dataset_val = data_loader_val.dataset
         imgs = [img.to(self.device) for img, _ in dataset_val]
         targets = [target for _, target in dataset_val]
         targets = [{k: v.to(self.device) for k, v in t.items()} for t in targets]
-        metric = MeanAveragePrecision()
+        metric = MeanAveragePrecision() """
 
         for epoch in range(num_epochs):
             # train for one epoch, printing every 10 iterations
@@ -73,14 +73,14 @@ class model_detector():
             # evaluate on the test dataset
             evaluate(self.model, data_loader_val, device=self.device) 
             
-            output = self.model(imgs)
+            """ output = self.model(imgs)
             metric.update(output, targets)
             mAP = metric.compute()['map'].item()
             #print(f"Dataset length: {len(dataset_val)}\n mAP:{mAP}")
             if mAP > self.best_map:
                 torch.save(self.model.state_dict(), "saved_model/" + self.model_name +
                                                          "-best-epoch"+ str(epoch) +".pt")
-                self.best_map = mAP
+                self.best_map = mAP """
 
         torch.save(self.model.state_dict(), "saved_model/" + self.model_name +
                                                          "-last-epoch"+ str(epoch) +".pt")
