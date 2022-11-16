@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --time=12:00:00
+#SBATCH --time=03:00:00
 #SBATCH --job-name=Road_Damage_Detection
 #SBATCH --output=Road_Damage_Detection.out
 #SBATCH --error=Road_Damage_Detection.err
