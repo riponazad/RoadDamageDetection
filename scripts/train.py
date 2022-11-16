@@ -1,6 +1,5 @@
 import RoadDamageDataset
 import argparse
-import logs
 import model_zoo
 import utils
 import transforms as T
@@ -48,12 +47,10 @@ if __name__ == '__main__':
     args = parse_args()
     orig_stdout = sys.stdout
     f = open('out.txt', 'w')
-    #sys.stdout = f
+    sys.stdout = f
 
     #dataset_test = RoadDamageDataset.RoadDamageDatasetTest(args.root_dir, get_transform(train=False))
     
-    #logs.logging.info(dataset_test[2])
-    #print(f"Test dataset length: {len(dataset_test)}")
 
     # use our dataset and defined transformations
     dataset_train = RoadDamageDataset.RoadDamageDataset(args.root_dir, get_transform(train=True))

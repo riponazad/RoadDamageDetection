@@ -12,6 +12,7 @@ bin-release/
 *.xml
 *.zip
 *.pt
+*.pyc
 
 # Executables
 *.swf
