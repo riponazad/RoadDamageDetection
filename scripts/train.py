@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument("--model_name", default="fasterrcnn_resnet50", nargs="?", choices=["fasterrcnn_resnet50",
                         "fasterrcnn_resnet50v2", "fasterrcnn_mobilenetv3", "fasterrcnn_mobilenetv3_low"],
                         help="Choose a prefered pretrained model (fasterrcnn_resnet50 is default).")
-    parser.add_argument("--num_epochs", default=1, help="Specify the number of epochs to train.")
+    parser.add_argument("--num_epochs", default=1, type=int, help="Specify the number of epochs to train.")
     parser.add_argument("--model_dir", default="saved_model", help="Specify the path to save model.") 
 
     args = parser.parse_args()
