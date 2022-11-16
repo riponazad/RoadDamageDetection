@@ -50,10 +50,10 @@ if __name__ == '__main__':
     f = open('out.txt', 'w')
     #sys.stdout = f
 
-    dataset_test = RoadDamageDataset.RoadDamageDatasetTest(args.root_dir, get_transform(train=False))
+    #dataset_test = RoadDamageDataset.RoadDamageDatasetTest(args.root_dir, get_transform(train=False))
     
     #logs.logging.info(dataset_test[2])
-    print(f"Test dataset length: {len(dataset_test)}")
+    #print(f"Test dataset length: {len(dataset_test)}")
 
     # use our dataset and defined transformations
     dataset_train = RoadDamageDataset.RoadDamageDataset(args.root_dir, get_transform(train=True))
@@ -64,21 +64,21 @@ if __name__ == '__main__':
     indices = torch.randperm(len(dataset_train)).tolist()
     dataset_train = torch.utils.data.Subset(dataset_train, indices[:-1975])
     dataset_val = torch.utils.data.Subset(dataset_val, indices[-1:])
-    print(f"Train dataset length: {len(dataset_train)}")
-    print(f"Validation dataset length: {len(dataset_val)}")
+    print(f"Train dataset length ({args.root_dir}): {len(dataset_train)}")
+    print(f"Validation dataset length ({args.root_dir}): {len(dataset_val)}")
 
     # define training and validation data loaders
     data_loader_train = torch.utils.data.DataLoader(
-        dataset_train, batch_size=2, shuffle=True, num_workers=2,
+        dataset_train, batch_size=2, shuffle=True, num_workers=1,
         collate_fn=utils.collate_fn)
 
     data_loader_val = torch.utils.data.DataLoader(
-        dataset_val, batch_size=1, shuffle=False, num_workers=2,
+        dataset_val, batch_size=1, shuffle=False, num_workers=1,
         collate_fn=utils.collate_fn)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    print(device)
-    print(torch.version.cuda)
+    print(f"Operation device: {device}")
+    #print(torch.version.cuda)
 
     # num_classes which is user-defined
     num_classes = 6  # number of classes is 5 (+1 background) in our case
