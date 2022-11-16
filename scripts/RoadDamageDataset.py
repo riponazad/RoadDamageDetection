@@ -12,14 +12,33 @@ label_dict = {
     "Repair" : 5
 }
 
+
+def isValid(root, annot):
+    bbox_path = os.path.join(root, "train", "annotations", "xmls", annot)
+    tree = ET.parse(bbox_path)
+    #print(bbox_path)
+    root = tree.getroot()
+    if root.find('object') == None:
+        return False
+    return True
+
+
 class RoadDamageDataset(torch.utils.data.Dataset):
     def __init__(self, root, transforms=None):
         self.root = root
         self.transforms = transforms
+        
+        img_files = list(sorted(os.listdir(os.path.join(root, "train", "images"))))
+        bbox_files = list(sorted(os.listdir(os.path.join(root, "train", "annotations", "xmls"))))
+        self.imgs = [] 
+        self.bboxes = []
         # load all image files, sorting them to
         # ensure that they are aligned
-        self.imgs = list(sorted(os.listdir(os.path.join(root, "train", "images"))))
-        self.bboxes = list(sorted(os.listdir(os.path.join(root, "train", "annotations", "xmls"))))
+        for idx in range(len(bbox_files)):
+            if isValid(root, bbox_files[idx]):
+                self.imgs.append(img_files[idx])
+                self.bboxes.append(bbox_files[idx])
+
 
     def __getitem__(self, idx):
         # load images ad masks
