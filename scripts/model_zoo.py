@@ -76,7 +76,7 @@ class model_detector():
             output = self.model(imgs)
             metric.update(output, targets)
             mAP = metric.compute()['map'].item()
-            print(f"Dataset length: {len(dataset_val)}\n mAP:{mAP}")
+            #print(f"Dataset length: {len(dataset_val)}\n mAP:{mAP}")
             if mAP > self.best_map:
                 torch.save(self.model.state_dict(), "saved_model/" + self.model_name +
                                                          "-best-epoch"+ str(epoch) +".pt")

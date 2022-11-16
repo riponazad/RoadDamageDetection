@@ -62,18 +62,21 @@ if __name__ == '__main__':
     # split the dataset in train and validation set
     torch.manual_seed(1)
     indices = torch.randperm(len(dataset_train)).tolist()
-    dataset_train = torch.utils.data.Subset(dataset_train, indices[:-1975])
-    dataset_val = torch.utils.data.Subset(dataset_val, indices[-1:])
-    print(f"Train dataset length ({args.root_dir}): {len(dataset_train)}")
-    print(f"Validation dataset length ({args.root_dir}): {len(dataset_val)}")
+    ln = len(indices)
+    n = int(ln*0.75)
+    print(ln, n)
+    dataset_train = torch.utils.data.Subset(dataset_train, indices[:-(ln-n)])
+    dataset_val = torch.utils.data.Subset(dataset_val, indices[-(ln-n):])
+    print(f"Train dataset length: {len(dataset_train)}")
+    print(f"Validation dataset length: {len(dataset_val)}")
 
     # define training and validation data loaders
     data_loader_train = torch.utils.data.DataLoader(
-        dataset_train, batch_size=2, shuffle=True, num_workers=1,
+        dataset_train, batch_size=6, shuffle=True, num_workers=1,
         collate_fn=utils.collate_fn)
 
     data_loader_val = torch.utils.data.DataLoader(
-        dataset_val, batch_size=1, shuffle=False, num_workers=1,
+        dataset_val, batch_size=2, shuffle=False, num_workers=1,
         collate_fn=utils.collate_fn)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
