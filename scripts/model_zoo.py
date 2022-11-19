@@ -82,8 +82,7 @@ class model_detector():
                                                          "-best-epoch"+ str(epoch) +".pt")
                 self.best_map = mAP """
 
-        torch.save(self.model.state_dict(), "saved_model/" + self.model_name +
-                                                         "-last-epoch"+ str(epoch) +".pt")
+        torch.save(self.model.state_dict(), "saved_model/" + self.model_name+".pt")
 
 
 

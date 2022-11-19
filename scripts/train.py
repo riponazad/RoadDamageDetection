@@ -6,6 +6,7 @@ import transforms as T
 import numpy as np
 import torch
 import sys
+import os
 
 
 import matplotlib.pyplot as plt
@@ -84,8 +85,18 @@ if __name__ == '__main__':
     # num_classes which is user-defined
     num_classes = 6  # number of classes is 5 (+1 background) in our case
 
+
     # get the model using our helper function
     model = model_zoo.model_detector(args.model_name, num_classes, device)
+
+    # look for a saved model (weights) to retrieve
+    tmp_model = args.model_name + ".pt"
+    saved_models = os.listdir(args.model_dir)
+    for mdl in saved_models:
+        if str(mdl) == tmp_model:
+            print("Previous trained model is retrieved.")
+            model.model.load_state_dict(torch.load(os.path.join(args.model_dir,tmp_model)))
+
     # move model to the right device
     #model.to_(device)
     #model.print()
