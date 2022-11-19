@@ -20,11 +20,11 @@ def isValid(root, annot):
     if root.find('object') == None:
         return False
     
-    """ for obj in root.iter('object'):
+    for obj in root.iter('object'):
         if obj.find('bndbox') == None:
             return False
         elif label_dict.get(obj.find('name').text) == None:
-            return False """
+            return False
         
     return True
 
