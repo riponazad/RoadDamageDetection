@@ -91,7 +91,7 @@ class model_detector():
         with torch.no_grad():
             prediction = self.model([img.to(self.device)])
 
-        prediction[0]["boxes"] = prediction[0]["boxes"][prediction[0]["scores"] > 0.8]
+        """ prediction[0]["boxes"] = prediction[0]["boxes"][prediction[0]["scores"] > 0.8]
         prediction[0]["labels"] = prediction[0]["labels"][prediction[0]["scores"] > 0.8]
         prediction[0]["scores"] = prediction[0]["scores"][prediction[0]["scores"] > 0.8]
 
@@ -108,4 +108,5 @@ class model_detector():
                                     width=2
                                     )
         output = to_pil_image(output)
-        return output 
+        return output """
+        return prediction 
