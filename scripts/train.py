@@ -83,7 +83,7 @@ if __name__ == '__main__':
     #print(torch.version.cuda)
 
     # num_classes which is user-defined
-    num_classes = 6  # number of classes is 5 (+1 background) in our case
+    num_classes = 5  # number of classes is 4 (+1 background) in our case
 
 
     # get the model using our helper function
