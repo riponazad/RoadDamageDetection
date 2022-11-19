@@ -50,10 +50,10 @@ if __name__ == '__main__':
     open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "w").close()
     
     imgs_list = os.listdir(os.path.join(args.root_dir, "test", "images"))
-    j = 1
+    #j = 1
     for img_name in imgs_list:
-        if j > 5:
-            break
+        """ if j > 5:
+            break """
         img = Image.open(os.path.join(args.root_dir, "test", "images", img_name))
         prediction = model.predict(to_tensor(img))
         num_objs = len(prediction[0]['labels'])
@@ -73,6 +73,6 @@ if __name__ == '__main__':
                 i += 1
             f.write('\n')
             print()
-        j += 1
+        #j += 1
 
     #print(output)
