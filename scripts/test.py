@@ -47,6 +47,7 @@ if __name__ == '__main__':
     #dataset_test = RoadDamageDataset.RoadDamageDatasetTest(args.root_dir, get_transform(train=False))
 
     to_tensor = transforms.ToTensor()
+    open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "w").close()
     
     imgs_list = os.listdir(os.path.join(args.root_dir, "test", "images"))
     j = 1
@@ -60,15 +61,15 @@ if __name__ == '__main__':
         b_boxs = prediction[0]['boxes'].cpu()
         #print(labels)
         #print(b_boxs)
-        with open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "w") as f:
+        with open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "a") as f:
             i = 0
             f.write(str(img_name)+",")
             print(img_name+",", end='')
             while i < num_objs and i < 5:
-                f.write(str(labels[i].item())+" "+str(b_boxs[i][0].item())+" "+str(b_boxs[i][1].item())
-                        +" "+str(b_boxs[i][2].item())+" "+str(b_boxs[i][3].item())+" ")
-                print(str(labels[i].item())+" "+str(b_boxs[i][0].item())+" "+str(b_boxs[i][1].item())
-                        +" "+str(b_boxs[i][2].item())+" "+str(b_boxs[i][3].item())+" ", end='')
+                f.write(str(labels[i].item())+" "+str(round(b_boxs[i][0].item()))+" "+str(round(b_boxs[i][1].item()))
+                        +" "+str(round(b_boxs[i][2].item()))+" "+str(round(b_boxs[i][3].item()))+" ")
+                print(str(labels[i].item())+" "+str(round(b_boxs[i][0].item()))+" "+str(round(b_boxs[i][1].item()))
+                        +" "+str(round(b_boxs[i][2].item()))+" "+str(round(b_boxs[i][3].item()))+" ", end='')
                 i += 1
             f.write('\n')
             print()
