@@ -8,8 +8,7 @@ label_dict = {
     "D00" : 1,
     "D10" : 2,
     "D20" : 3,
-    "D40" : 4,
-    "Repair" : 5
+    "D40" : 4
 }
 
 
@@ -20,6 +19,13 @@ def isValid(root, annot):
     root = tree.getroot()
     if root.find('object') == None:
         return False
+    
+    for obj in root.iter('object'):
+        if obj.find('bndbox') == None:
+            return False
+        elif label_dict.get(obj.find('name').text) == None:
+            return False
+        
     return True
 
 
