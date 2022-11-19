@@ -62,7 +62,7 @@ class RoadDamageDataset(torch.utils.data.Dataset):
         labels = []
         for obj in root.iter('object'):
           #print(obj[0].text)
-          bounding_box = obj[4]
+          bounding_box = obj.find('bndbox')
           xmin = float(bounding_box[0].text)
           xmax = float(bounding_box[2].text)
           ymin = float(bounding_box[1].text)
