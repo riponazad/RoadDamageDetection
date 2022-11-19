@@ -60,11 +60,11 @@ if __name__ == '__main__':
         b_boxs = prediction[0]['boxes'].cpu()
         print(labels)
         print(b_boxs)
-        with open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "a") as f:
+        with open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "w") as f:
             i = 0
             f.write(str(img_name)+",")
             while i < num_objs and i < 5:
-                f.write(labels[i]+" "+b_boxs[i][0]+" "+b_boxs[i][1]+" "+b_boxs[i][2]+" "+b_boxs[i][3]+"\n")
+                f.write(str(labels[i]+" "+b_boxs[i][0]+" "+b_boxs[i][1]+" "+b_boxs[i][2]+" "+b_boxs[i][3]+"\n"))
                 i += 1
         j += 1
 
