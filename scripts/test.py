@@ -46,8 +46,10 @@ if __name__ == '__main__':
 
     #dataset_test = RoadDamageDataset.RoadDamageDatasetTest(args.root_dir, get_transform(train=False))
 
+    dataset_name = os.path.split(args.root_dir)
+
     to_tensor = transforms.ToTensor()
-    open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "w").close()
+    open(os.path.join(args.output_dir,args.model_name+dataset_name[1]+"_prediction.txt"), "w").close()
     
     imgs_list = os.listdir(os.path.join(args.root_dir, "test", "images"))
     #j = 1
@@ -61,7 +63,7 @@ if __name__ == '__main__':
         b_boxs = prediction[0]['boxes'].cpu()
         #print(labels)
         #print(b_boxs)
-        with open(os.path.join(args.output_dir,args.model_name+"_prediction.txt"), "a") as f:
+        with open(os.path.join(args.output_dir,args.model_name+dataset_name[1]+"_prediction.txt"), "a") as f:
             i = 0
             f.write(str(img_name)+",")
             print(img_name+",", end='')
