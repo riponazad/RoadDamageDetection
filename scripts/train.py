@@ -98,6 +98,8 @@ if __name__ == '__main__':
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
     # move model to the right device
     model.to(device)
+    tmp_model = args.model_name + ".pt"
+    model.load_state_dict(torch.load(os.path.join(args.model_dir,tmp_model)))
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
