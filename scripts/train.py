@@ -11,7 +11,12 @@ import os
 
 import matplotlib.pyplot as plt
 from PIL import Image
-
+import torchvision
+from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+from engine import train_one_epoch, evaluate
+from torch.optim.lr_scheduler import StepLR
+from torchvision.utils import draw_bounding_boxes
+from torchvision.transforms.functional import to_pil_image
 
 
 
@@ -87,15 +92,39 @@ if __name__ == '__main__':
 
 
     # get the model using our helper function
-    model = model_zoo.model_detector(args.model_name, num_classes, device)
+    #model = model_zoo.model_detector(args.model_name, num_classes, device)
+    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(weights="DEFAULT")
+    in_features = model.roi_heads.box_predictor.cls_score.in_features
+    model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+    # move model to the right device
+    model.to(device)
+
+    # construct an optimizer
+    params = [p for p in model.parameters() if p.requires_grad]
+    optimizer = torch.optim.SGD(params, lr=0.005,
+                                momentum=0.9, weight_decay=0.0005)
+    # and a learning rate scheduler
+    lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
+                                                   step_size=3,
+                                                   gamma=0.1)
+
+
+    for epoch in range(args.num_epochs):
+        # train for one epoch, printing every 10 iterations
+        train_one_epoch(model, optimizer, data_loader_train, device, epoch, print_freq=10)
+        # update the learning rate
+        lr_scheduler.step()
+        # evaluate on the test dataset
+        evaluate(model, data_loader_val, device=device)
+
 
     # look for a saved model (weights) to retrieve
-    tmp_model = args.model_name + ".pt"
+    """ tmp_model = args.model_name + ".pt"
     saved_models = os.listdir(args.model_dir)
     for mdl in saved_models:
         if str(mdl) == tmp_model:
             print("Previous trained model is retrieved.")
-            model.model.load_state_dict(torch.load(os.path.join(args.model_dir,tmp_model)))
+            model.model.load_state_dict(torch.load(os.path.join(args.model_dir,tmp_model))) """
 
     # move model to the right device
     #model.to_(device)
@@ -105,18 +134,18 @@ if __name__ == '__main__':
     #print(next(model.model.parameters()).device)
 
     # construct an optimizer
-    params = [p for p in model.model.parameters() if p.requires_grad]
-    optimizer = torch.optim.SGD(params, lr=0.005,
-                                momentum=0.9, weight_decay=0.0005)
+    #params = [p for p in model.parameters() if p.requires_grad]
+    #optimizer = torch.optim.SGD(params, lr=0.005,
+     #                           momentum=0.9, weight_decay=0.0005)
 
     # and a learning rate scheduler which decreases the learning rate by
     # 10x every 3 epochs
-    lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
-                                                step_size=3,
-                                                gamma=0.1)
+    #lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
+      #                                          step_size=3,
+       #                                         gamma=0.1)
 
     # training the model
-    model.train(data_loader_train, data_loader_val, args.num_epochs, optimizer, lr_scheduler)
+    #model.train(data_loader_train, data_loader_val, args.num_epochs, optimizer, lr_scheduler)
 
     # pick one image from the test set
     #img, _ = dataset_test[0]
