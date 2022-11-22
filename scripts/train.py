@@ -69,6 +69,9 @@ if __name__ == '__main__':
     print(f"Train dataset length: {len(dataset_train)}")
     print(f"Validation dataset length: {len(dataset_val)}")
 
+    #img, _ = dataset_train[0]
+    #TT.ToPILImage()(img).show()
+
     # define training and validation data loaders
     data_loader_train = torch.utils.data.DataLoader(
         dataset_train, batch_size=6, shuffle=True, num_workers=1,
