@@ -13,7 +13,7 @@ label_dict = {
 }
 
 #size of the images
-img_size = 640
+img_scale = 0.6
 
 def isValid(root, annot):
     bbox_path = os.path.join(root, "train", "annotations", "xmls", annot)
@@ -94,7 +94,7 @@ class RoadDamageDataset(torch.utils.data.Dataset):
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
-            img = T.Resize(img_size)(img)
+            img = T.Resize((int(img.shape[1]*img_scale), int(img.shape[2]*img_scale)))(img)
 
         return img, target
 
@@ -122,7 +122,7 @@ class RoadDamageDatasetTest(torch.utils.data.Dataset):
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)
-            img = T.Resize(img_size)(img)
+            img = T.Resize((int(img.shape[1]*img_scale), int(img.shape[2]*img_scale)))(img)
 
         return img, target
 

@@ -69,7 +69,8 @@ if __name__ == '__main__':
     print(f"Train dataset length: {len(dataset_train)}")
     print(f"Validation dataset length: {len(dataset_val)}")
 
-    #img, _ = dataset_train[0]
+    img, _ = dataset_train[0]
+    print(img.shape)
     #TT.ToPILImage()(img).show()
 
     # define training and validation data loaders
