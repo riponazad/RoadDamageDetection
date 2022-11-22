@@ -39,7 +39,7 @@ if __name__=='__main__':
     rf = Roboflow(api_key="GMu5JzrtMZIat8AoYbMF")
     project = rf.workspace("tdt17-bllhm").project("roaddamagedetection-zwu1t")
     model = project.version(1).model
-    model.to(device)
+    
 
 
 
