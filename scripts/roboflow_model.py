@@ -59,12 +59,12 @@ if __name__=='__main__':
     open(os.path.join(args.output_dir,"roboflow"+dataset_name[1]+"_prediction.txt"), "w").close()
     
     imgs_list = os.listdir(os.path.join(args.root_dir, "test", "images"))
-    j = 1
+    #j = 1
 
     with open(os.path.join(args.output_dir, "roboflow"+dataset_name[1]+"_prediction.txt"), "a") as f:
         for img_name in imgs_list:
-            if j > 5:
-                break
+            """ if j > 5:
+                break """
             i = 0
             f.write(str(img_name)+",")
             prediction = model.predict(os.path.join(args.root_dir, "test", "images", img_name),
@@ -86,7 +86,7 @@ if __name__=='__main__':
                 #print(bnd_boxes[i]['class'], xmin, ymin, xmax, ymax)
                 i += 1
             f.write('\n')
-            j += 1
+            #j += 1
 
         
 
